@@ -25,8 +25,12 @@ class CustomInput extends StatelessWidget {
         keyboardType: TextInputType.multiline,
         maxLines: maxLines,
         decoration: InputDecoration(
-          suffixIcon: icon,
-          border: const OutlineInputBorder(),
+          filled: true,
+          fillColor: const Color(0xFFDFF7E2),
+          // suffixIcon: icon,
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(18)),
+          ),
           labelText: labelText,
         ),
       ),

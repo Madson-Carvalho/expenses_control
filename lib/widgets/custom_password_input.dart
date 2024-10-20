@@ -21,6 +21,8 @@ class _CustomPasswordInputState extends State<CustomPasswordInput> {
         controller: _controller,
         obscureText: _changeInput,
         decoration: InputDecoration(
+          filled: true,
+          fillColor: const Color(0xFFDFF7E2),
           suffixIcon: GestureDetector(
             onTap: () {
               setState(() {
@@ -29,9 +31,12 @@ class _CustomPasswordInputState extends State<CustomPasswordInput> {
             },
             child: Icon(
               !_changeInput ? Icons.visibility_off : Icons.visibility,
+              color: const Color(0xFF093030),
             ),
           ),
-          border: const OutlineInputBorder(),
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(18))
+          ),
           labelText: widget.labelText,
         ),
       ),
