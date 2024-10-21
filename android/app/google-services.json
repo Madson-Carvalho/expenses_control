@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "67491554586",
+    "project_id": "expenses-control-76a97",
+    "storage_bucket": "expenses-control-76a97.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67491554586:android:3f73342081ff29bd4ef8a3",
+        "android_client_info": {
+          "package_name": "com.expenses.control"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAt2G-_6jZ2E2SrFuX7awoSXOD_nWyGjjg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67491554586:android:07febe859eb51c254ef8a3",
+        "android_client_info": {
+          "package_name": "com.expenses.control.expenses_control"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAt2G-_6jZ2E2SrFuX7awoSXOD_nWyGjjg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
