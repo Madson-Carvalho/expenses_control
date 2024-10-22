@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class CustomPasswordInput extends StatefulWidget {
   final String labelText;
+  final TextEditingController controller;
 
-  const CustomPasswordInput({super.key, required this.labelText});
+  const CustomPasswordInput(
+      {super.key, required this.labelText, required this.controller});
 
   @override
   State<CustomPasswordInput> createState() => _CustomPasswordInputState();
@@ -11,14 +13,13 @@ class CustomPasswordInput extends StatefulWidget {
 
 class _CustomPasswordInputState extends State<CustomPasswordInput> {
   bool _changeInput = true;
-  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: TextFormField(
-        controller: _controller,
+        controller: widget.controller,
         obscureText: _changeInput,
         decoration: InputDecoration(
           filled: true,
@@ -35,8 +36,7 @@ class _CustomPasswordInputState extends State<CustomPasswordInput> {
             ),
           ),
           border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(18))
-          ),
+              borderRadius: BorderRadius.all(Radius.circular(18))),
           labelText: widget.labelText,
         ),
       ),

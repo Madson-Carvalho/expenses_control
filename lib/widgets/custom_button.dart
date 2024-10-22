@@ -4,12 +4,14 @@ class CustomButton extends StatelessWidget {
   String titleButton;
   Color backgroundColor;
   Color color;
+  VoidCallback? onPressed;
 
   CustomButton(
       {super.key,
       required this.titleButton,
       required this.backgroundColor,
-      required this.color});
+      required this.color,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -24,20 +26,7 @@ class CustomButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(18),
           ),
         ),
-        onPressed: () async {
-          try {
-            // await FirebaseAuthService().login();
-            // Navigator.pushReplacement(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => const HomePage(),
-            //     ));
-          } catch (e) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("Usuário ou senha incorreta..."),
-            ));
-          }
-        },
+        onPressed: onPressed,
         child: Text(
           titleButton,
           style: const TextStyle(
