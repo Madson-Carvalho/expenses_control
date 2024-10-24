@@ -24,6 +24,9 @@ class _BasePageState extends State<BasePage> {
         backgroundColor: const Color(0xFF00D09E),
         centerTitle: true,
       ),
+      drawer: Drawer(
+        child: ListView(children: [DrawerHeader(child: child)],),
+      ),
       body: widget.body,
     );
   }

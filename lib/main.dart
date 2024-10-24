@@ -14,7 +14,7 @@ main() async {
       theme: ThemeData(
         useMaterial3: false,
       ),
-      initialRoute: '/register-user',
+      initialRoute: '/',
       routes: {
         '/': (context) => const HomePage(),
         '/register-user': (context) => RegisterUser(),
