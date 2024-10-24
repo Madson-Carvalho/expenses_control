@@ -14,8 +14,11 @@ main() async {
       theme: ThemeData(
         useMaterial3: false,
       ),
-      // home: const HomePage(),
-      home: RegisterUser(),
+      initialRoute: '/register-user',
+      routes: {
+        '/': (context) => const HomePage(),
+        '/register-user': (context) => RegisterUser(),
+      },
     ),
   );
 }
