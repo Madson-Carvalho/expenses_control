@@ -27,7 +27,6 @@ class CustomInput extends StatelessWidget {
         decoration: InputDecoration(
           filled: true,
           fillColor: const Color(0xFFDFF7E2),
-          // suffixIcon: icon,
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(18)),
           ),
