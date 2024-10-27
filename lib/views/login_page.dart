@@ -46,36 +46,52 @@ class LoginPage extends StatelessWidget {
                 child: CustomButton(
                   titleButton: "Entrar",
                   backgroundColor: const Color(0xFF00D09E),
-                  color: const Color(0xFF093030), onPressed: () {  },
-                  // onPressed: () async {
-                  //   try {
-                  //     if (passwordController.text ==
-                  //         confirmPasswordController.text) {
-                  //       await FirebaseAuthService().register(
-                  //           nameController.text,
-                  //           emailController.text,
-                  //           passwordController.text);
-                  //
-                  //       Navigator.pushReplacementNamed(context, '/');
-                  //     } else {
-                  //       ScaffoldMessenger.of(context)
-                  //           .showSnackBar(const SnackBar(
-                  //         content: Text("As senhas não iguais..."),
-                  //       ));
-                  //     }
-                  //   } catch (e) {
-                  //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  //       content: Text("Usuário ou senha incorreta..."),
-                  //     ));
-                  //   }
-                  // },
+                  color: const Color(0xFF093030),
+                    onPressed: () async {
+                      try {
+                        await FirebaseAuthService().login(
+                          emailController.text,
+                          passwordController.text,
+                        );
+                        Navigator.pushReplacementNamed(context, '/');
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Usuário ou senha incorretos.'),
+                          backgroundColor: Colors.red,
+                        ));
+                      }
+                    }
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20, bottom: 20),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/forgot-password');
+                child: TextButton(
+                  onPressed: () async {
+                    if (emailController.text.isNotEmpty) {
+                      try {
+                        await FirebaseAuthService().sendPasswordResetEmail(emailController.text);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Email de recuperação enviado!'),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Erro ao enviar email. Verifique o email e tente novamente.'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Por favor, insira seu email.'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
                   },
                   child: const Text(
                     "Esqueceu a senha?",
@@ -88,35 +104,24 @@ class LoginPage extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: GestureDetector(
-                  onTap: () {
+                child: CustomButton(
+                  titleButton: "Cadastre-se",
+                  backgroundColor: const Color(0xFFDFF7E2),
+                  color: const Color(0xFF093030),
+                  onPressed: () {
                     Navigator.pushNamed(context, '/register-user');
                   },
-                  child: CustomButton(
-                    titleButton: "Cadastre-se",
-                    backgroundColor: const Color(0xFFDFF7E2),
-                    color: const Color(0xFF093030),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/register-user');
-                    },
-                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 30),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/forgot-password');
-                  },
-                  child: const Text(
-                    "or sign up whith",
-                    style: TextStyle(
-                      color: const Color(0xFF093030),
-                    ),
+                padding: const EdgeInsets.only(top: 30, bottom: 30),
+                child: const Text(
+                  "or sign up whith",
+                  style: TextStyle(
+                    color: const Color(0xFF093030),
                   ),
                 ),
               ),
-              SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -125,13 +130,13 @@ class LoginPage extends StatelessWidget {
                     width: 40,
                     height: 40,
                   ),
-                  SizedBox(width: 20),
+                   SizedBox(width: 20),
                   Image.asset(
                     'assets/images/google.png',
                     width: 40,
                     height: 40,
                   ),
-                  SizedBox(width: 20),
+                   SizedBox(width: 20),
                   Image.asset(
                     'assets/images/github.png',
                     width: 40,
@@ -139,7 +144,6 @@ class LoginPage extends StatelessWidget {
                   ),
                 ],
               ),
-
             ],
           ),
         ),
