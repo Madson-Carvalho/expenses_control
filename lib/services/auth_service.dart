@@ -20,4 +20,6 @@ class FirebaseAuthService {
     var user = auth.currentUser!.displayName;
     return user;
   }
+
+  postRegisterExpense({required String expenseName, required double value, required String category, required DateTime date, required String comment}) {}
 }
