@@ -20,4 +20,27 @@ class FirebaseAuthService {
     var user = auth.currentUser!.displayName;
     return user;
   }
+
+  login(String email, String password) async {
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      return userCredential.user;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  sendPasswordResetEmail(String email) async {
+    try {
+      await auth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
+
+
