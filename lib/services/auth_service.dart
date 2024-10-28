@@ -21,5 +21,26 @@ class FirebaseAuthService {
     return user;
   }
 
+  login(String email, String password) async {
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      return userCredential.user;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  sendPasswordResetEmail(String email) async {
+    try {
+      await auth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   postRegisterExpense({required String expenseName, required double value, required String category, required DateTime date, required String comment}) {}
 }
