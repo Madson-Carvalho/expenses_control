@@ -1,3 +1,4 @@
+import 'package:expenses_control/views/expenses_view_page.dart';
 import 'package:expenses_control/views/home_page.dart';
 import 'package:expenses_control/views/login_page.dart';
 import 'package:expenses_control/views/register_user.dart';
@@ -15,11 +16,12 @@ main() async {
       theme: ThemeData(
         useMaterial3: false,
       ),
-      initialRoute: '/login',
+      initialRoute: '/expense-view',
       routes: {
         '/': (context) => const HomePage(),
         '/login': (context) => LoginPage(),
         '/register-user': (context) => RegisterUser(),
+        '/expense-view': (context) => ExpensesViewPage(), // Adicione a nova rota
       },
     ),
   );

@@ -35,4 +35,22 @@ class FirestoreService {
       rethrow;
     }
   }
+
+  getAllExpenses() async {
+    try {
+      var expenses = await db.collection('Expenes_Control').get();
+
+      return expenses.docs.map((doc) {
+        return {
+          'title': doc['title'],
+          'category': doc['category'],
+          'date': doc['date'],
+          'value': doc['value'],
+        };
+      }).toList();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
+
