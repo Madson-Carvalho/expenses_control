@@ -5,41 +5,19 @@ import 'package:expenses_control/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class RegisterExpense extends StatelessWidget {
-  RegisterExpense({super.key});
+class RegisterExpenses extends StatefulWidget {
+  RegisterExpenses({super.key});
 
+  @override
+  State<RegisterExpenses> createState() => _RegisterExpensesState();
+}
+
+class _RegisterExpensesState extends State<RegisterExpenses> {
   final TextEditingController expenseController = TextEditingController();
   final TextEditingController valueController = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController commentController = TextEditingController();
-
-  registerExpense() async {
-    final String expenseName = expenseController.text;
-    final String value = valueController.text;
-    final String category = categoryController.text;
-    final String date = dateController.text;
-    final String comment = commentController.text;
-
-    try {
-      DateTime parsedDate = DateFormat("dd/MM/yyyy").parse(date);
-      await FirestoreService().postRegisterExpense(
-        expenseName,
-        value,
-        category,
-        parsedDate, 
-        comment,
-      );
-
-      expenseController.clear();
-      valueController.clear();
-      categoryController.clear();
-      dateController.clear();
-      commentController.clear();
-    } catch (e) {
-      rethrow;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +35,7 @@ class RegisterExpense extends StatelessWidget {
                 child: CustomInput(
                   controller: expenseController,
                   labelText: "Nome da despesa",
-                  icon: const Icon(null),
+                  icon: const Icon(Icons.date_range),
                 ),
               ),
               Padding(
@@ -65,7 +43,7 @@ class RegisterExpense extends StatelessWidget {
                 child: CustomInput(
                   controller: valueController,
                   labelText: "Valor",
-                  icon: const Icon(null),
+                  icon: const Icon(Icons.date_range),
                 ),
               ),
               Padding(
@@ -73,7 +51,7 @@ class RegisterExpense extends StatelessWidget {
                 child: CustomInput(
                   controller: categoryController,
                   labelText: "Categoria",
-                  icon: const Icon(null),
+                  icon: const Icon(Icons.date_range),
                 ),
               ),
               Padding(
@@ -89,7 +67,7 @@ class RegisterExpense extends StatelessWidget {
                 child: CustomInput(
                   controller: commentController,
                   labelText: "Adicione um comentário",
-                  icon: const Icon(null),
+                  icon: const Icon(Icons.ice_skating),
                 ),
               ),
               Padding(
@@ -99,7 +77,24 @@ class RegisterExpense extends StatelessWidget {
                   backgroundColor: const Color(0xFF00D09E),
                   color: const Color(0xFF093030),
                   onPressed: () async {
-                    await registerExpense();
+                    try {
+                      DateTime parsedDate = DateFormat("dd/MM/yyyy").parse(dateController.text);
+                      await FirestoreService().postRegisterExpense(
+                        expenseController.text,
+                        double.parse(valueController.text),
+                        categoryController.text,
+                        parsedDate,
+                        commentController.text,
+                      );
+
+                      expenseController.clear();
+                      valueController.clear();
+                      categoryController.clear();
+                      dateController.clear();
+                      commentController.clear();
+                    } catch (e) {
+                      print("Erro ao registrar despesa: $e");
+                    }
                   },
                 ),
               )

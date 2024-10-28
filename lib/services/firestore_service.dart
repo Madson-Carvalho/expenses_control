@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:expenses_control/services/auth_service.dart';
 
 class FirestoreService {
   var db = FirebaseFirestore.instance;
@@ -17,7 +16,7 @@ class FirestoreService {
         total += value;
       }
 
-      return (total);
+      return total;
     } catch (e) {
       rethrow;
     }
@@ -37,15 +36,13 @@ class FirestoreService {
     }
   }
 
- postRegisterExpense(String expenseName, String value, String category, DateTime parsedDate, String comment) async {
-    await db.collection('Expenses').add({
-      "user": await FirebaseAuthService().checkUser(),
-      "expense_name": expenseName,
+ postRegisterExpense(String expenseName, double value, String category, DateTime parsedDate, String comment) async {
+    await db.collection('Expenes_Control').add({
+      "title": expenseName,
       "value": value,
       "category": category,
       "date": parsedDate,
-      "comment": comment,
-      "created_at": DateTime.now(),
+      "aditional_notes": comment,
     });
   }
 
