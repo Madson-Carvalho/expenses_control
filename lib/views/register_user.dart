@@ -31,7 +31,6 @@ class RegisterUser extends StatelessWidget {
                 child: CustomInput(
                   controller: nameController,
                   labelText: "Nome",
-                  icon: const Icon(Icons.person),
                 ),
               ),
               Padding(
@@ -39,7 +38,6 @@ class RegisterUser extends StatelessWidget {
                 child: CustomInput(
                   controller: emailController,
                   labelText: "Email",
-                  icon: const Icon(Icons.email),
                 ),
               ),
               Padding(

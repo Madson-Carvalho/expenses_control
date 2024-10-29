@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class CustomInput extends StatelessWidget {
   String labelText;
   bool obscure;
-  Widget icon;
   TextEditingController controller;
   int? maxLines;
 
@@ -11,7 +10,6 @@ class CustomInput extends StatelessWidget {
       {super.key,
       required this.labelText,
       this.obscure = false,
-      required this.icon,
       required this.controller,
       this.maxLines = 1});
 

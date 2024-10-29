@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class BasePage extends StatefulWidget {
   final String title;
@@ -25,7 +27,7 @@ class _BasePageState extends State<BasePage> {
         centerTitle: true,
       ),
       drawer: Drawer(
-        child: ListView(padding: EdgeInsets.zero, children: const [
+        child: ListView(padding: EdgeInsets.zero, children: [
           UserAccountsDrawerHeader(
             currentAccountPicture: CircleAvatar(),
             accountEmail: Text('khalifa@example.com', style: TextStyle(color: Colors.black)),
@@ -37,18 +39,28 @@ class _BasePageState extends State<BasePage> {
                 color: Color(0xFF00D09E),
                 ),
           ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text(
-              'Home',
-              style: TextStyle(fontSize: 20.0),
+          GestureDetector(
+            onTap: () {
+            Navigator.pushReplacementNamed(context, '/');
+          },
+            child: ListTile(
+              leading: Icon(Icons.home),
+              title: Text(
+                'Home',
+                style: TextStyle(fontSize: 20.0),
+              ),
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.add),
-            title: Text(
-              'Cadastrar despesas',
-              style: TextStyle(fontSize: 20.0),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/register-expense');
+            },
+            child: ListTile(
+              leading: Icon(Icons.add),
+              title: Text(
+                'Cadastrar despesas',
+                style: TextStyle(fontSize: 20.0),
+              ),
             ),
           ),
           ListTile(

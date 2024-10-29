@@ -16,7 +16,7 @@ class FirestoreService {
         total += value;
       }
 
-      return (total);
+      return total;
     } catch (e) {
       rethrow;
     }
@@ -30,6 +30,25 @@ class FirestoreService {
           .limit(4)
           .get();
 
+      return expenses.docs;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+ postRegisterExpense(String expenseName, double value, String category, DateTime parsedDate, String comment) async {
+    await db.collection('Expenes_Control').add({
+      "title": expenseName,
+      "value": value,
+      "category": category,
+      "date": parsedDate,
+      "aditional_notes": comment,
+    });
+  }
+
+  getRegisterExpense() async {
+    try {
+      var expenses = await db.collection('Expenes_Control').orderBy('created_at', descending: true).get();
       return expenses.docs;
     } catch (e) {
       rethrow;
