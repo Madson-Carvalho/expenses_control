@@ -57,18 +57,15 @@ class FirestoreService {
 
   getAllExpenses() async {
     try {
-      var expenses = await db.collection('Expenes_Control').get();
+      var expenses = await db
+          .collection('Expenes_Control')
+          .orderBy('date', descending: true)
+          .get();
 
-      return expenses.docs.map((doc) {
-        return {
-          'title': doc['title'],
-          'category': doc['category'],
-          'date': doc['date'],
-          'value': doc['value'],
-        };
-      }).toList();
+      return expenses.docs;
     } catch (e) {
       rethrow;
     }
   }
 }
+

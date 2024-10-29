@@ -70,7 +70,7 @@ class _ExpensesViewPageState extends State<ExpensesViewPage> {
                 ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: BorderSide(
                   color: Color(0xFF00D09E), // Cor da borda quando o campo está em foco
                   width: 2,
