@@ -32,81 +32,83 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BasePage(
       title: 'Olá, $userName!',
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(top: 50, bottom: 100),
-            child: Column(
-              children: [
-                const Text(
-                  "Total Gasto Mensal",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: 125,
-                  margin: const EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF00D09E),
-                    borderRadius: BorderRadius.circular(20),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 50, bottom: 100),
+              child: Column(
+                children: [
+                  const Text(
+                    "Total Gasto Mensal",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_circle_down, size: 15),
-                          SizedBox(width: 10),
-                          Text('Despesa total'),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        'R\$ ${totalExpenses.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          Column(children: [
-            const Text(
-              "Últimas Despesas",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 50),
-            SizedBox(
-              height: 400,
-              child: ListView.separated(
-                itemCount: _recentExpenses.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    iconColor: const Color(0xFF6DB6FE),
-                    leading: const Icon(Icons.monetization_on),
-                    title: Text('${_recentExpenses[index]['title']} \n ${_recentExpenses[index]['category']}'),
-                    subtitle: Text(
-                        DateFormat('dd/MM/yyyy hh:mm:ss').format(_recentExpenses[index]['date'].toDate()),
-                      style: const TextStyle(color: Color(0xFF0068FF)),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: 125,
+                    margin: const EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF00D09E),
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    trailing: Text(
-                      '- R\$ ${_recentExpenses[index]['value'].toStringAsFixed(2)}',
-                      style: const TextStyle(color: Color(0xFF0068FF)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.arrow_circle_down, size: 15),
+                            SizedBox(width: 10),
+                            Text('Despesa total'),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Text(
+                          'R\$ ${totalExpenses.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ],
                     ),
-                  );
-                },
-                separatorBuilder: (context, index) =>
-                    const Divider(color: Color(0xFF00D09E)),
+                  )
+                ],
               ),
             ),
-          ]),
-        ],
+            Column(children: [
+              const Text(
+                "Últimas Despesas",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(height: 50),
+              SizedBox(
+                height: 400,
+                child: ListView.separated(
+                  itemCount: _recentExpenses.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      iconColor: const Color(0xFF6DB6FE),
+                      leading: const Icon(Icons.monetization_on),
+                      title: Text('${_recentExpenses[index]['title']} \n ${_recentExpenses[index]['category']}'),
+                      subtitle: Text(
+                          DateFormat('dd/MM/yyyy hh:mm:ss').format(_recentExpenses[index]['date'].toDate()),
+                        style: const TextStyle(color: Color(0xFF0068FF)),
+                      ),
+                      trailing: Text(
+                        '- R\$ ${_recentExpenses[index]['value'].toStringAsFixed(2)}',
+                        style: const TextStyle(color: Color(0xFF0068FF)),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) =>
+                      const Divider(color: Color(0xFF00D09E)),
+                ),
+              ),
+            ]),
+          ],
+        ),
       ),
     );
   }
