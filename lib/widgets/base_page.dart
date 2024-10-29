@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:expenses_control/services/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class BasePage extends StatefulWidget {
   final String title;
@@ -28,22 +27,23 @@ class _BasePageState extends State<BasePage> {
       ),
       drawer: Drawer(
         child: ListView(padding: EdgeInsets.zero, children: [
-          UserAccountsDrawerHeader(
+          const UserAccountsDrawerHeader(
             currentAccountPicture: CircleAvatar(),
-            accountEmail: Text('khalifa@example.com', style: TextStyle(color: Colors.black)),
+            accountEmail: Text('khalifa@example.com',
+                style: TextStyle(color: Colors.black)),
             accountName: Text(
               'Khalifa do Brega',
               style: TextStyle(fontSize: 24.0, color: Colors.black),
             ),
             decoration: BoxDecoration(
-                color: Color(0xFF00D09E),
-                ),
+              color: Color(0xFF00D09E),
+            ),
           ),
           GestureDetector(
             onTap: () {
-            Navigator.pushReplacementNamed(context, '/');
-          },
-            child: ListTile(
+              Navigator.pushReplacementNamed(context, '/');
+            },
+            child: const ListTile(
               leading: Icon(Icons.home),
               title: Text(
                 'Home',
@@ -55,7 +55,7 @@ class _BasePageState extends State<BasePage> {
             onTap: () {
               Navigator.pushReplacementNamed(context, '/register-expense');
             },
-            child: ListTile(
+            child: const ListTile(
               leading: Icon(Icons.add),
               title: Text(
                 'Cadastrar despesas',
@@ -63,18 +63,24 @@ class _BasePageState extends State<BasePage> {
               ),
             ),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(Icons.money_off),
             title: Text(
               'Despesas',
               style: TextStyle(fontSize: 20.0),
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.output),
-            title: Text(
-              'Sair',
-              style: TextStyle(fontSize: 20.0),
+          GestureDetector(
+            onTap: () {
+              FirebaseAuthService().logout();
+              Navigator.pushReplacementNamed(context, '/login');
+            },
+            child: const ListTile(
+              leading: Icon(Icons.output),
+              title: Text(
+                'Sair',
+                style: TextStyle(fontSize: 20.0),
+              ),
             ),
           ),
         ]),

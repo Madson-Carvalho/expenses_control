@@ -34,6 +34,14 @@ class FirebaseAuthService {
     }
   }
 
+  logout() async {
+    try {
+      auth.signOut();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   sendPasswordResetEmail(String email) async {
     try {
       await auth.sendPasswordResetEmail(email: email);
