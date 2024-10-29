@@ -31,7 +31,6 @@ class LoginPage extends StatelessWidget {
                 child: CustomInput(
                   controller: emailController,
                   labelText: "Email",
-                  icon: const Icon(Icons.email),
                 ),
               ),
               Padding(

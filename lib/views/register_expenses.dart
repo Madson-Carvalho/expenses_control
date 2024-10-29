@@ -19,6 +19,32 @@ class _RegisterExpensesState extends State<RegisterExpenses> {
   final TextEditingController dateController = TextEditingController();
   final TextEditingController commentController = TextEditingController();
 
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: Color(0xFF00D09E), // Cor do cabeçalho
+            cardColor: Color(0xFF00D09E),
+            colorScheme: ColorScheme.light(primary: Color(0xFF00D09E)),
+            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+          ),
+          child: child ?? Container(),
+        );
+      },
+    );
+
+    if (picked != null && picked != DateTime.now()) {
+      setState(() {
+        dateController.text = DateFormat("dd/MM/yyyy").format(picked);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BasePage(
@@ -35,7 +61,6 @@ class _RegisterExpensesState extends State<RegisterExpenses> {
                 child: CustomInput(
                   controller: expenseController,
                   labelText: "Nome da despesa",
-                  icon: const Icon(Icons.date_range),
                 ),
               ),
               Padding(
@@ -43,7 +68,6 @@ class _RegisterExpensesState extends State<RegisterExpenses> {
                 child: CustomInput(
                   controller: valueController,
                   labelText: "Valor",
-                  icon: const Icon(Icons.date_range),
                 ),
               ),
               Padding(
@@ -51,15 +75,18 @@ class _RegisterExpensesState extends State<RegisterExpenses> {
                 child: CustomInput(
                   controller: categoryController,
                   labelText: "Categoria",
-                  icon: const Icon(Icons.date_range),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
-                child: CustomInput(
-                  controller: dateController,
-                  labelText: "Data (dd/MM/yyyy)",
-                  icon: const Icon(Icons.date_range),
+                child: GestureDetector(
+                  onTap: () => _selectDate(context),
+                  child: AbsorbPointer(
+                    child: CustomInput(
+                      controller: dateController,
+                      labelText: "Data",
+                    ),
+                  ),
                 ),
               ),
               Padding(
@@ -67,7 +94,6 @@ class _RegisterExpensesState extends State<RegisterExpenses> {
                 child: CustomInput(
                   controller: commentController,
                   labelText: "Adicione um comentário",
-                  icon: const Icon(Icons.ice_skating),
                 ),
               ),
               Padding(
