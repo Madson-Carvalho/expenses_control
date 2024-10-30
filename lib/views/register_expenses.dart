@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expenses_control/services/firestore_service.dart';
 import 'package:expenses_control/widgets/base_page.dart';
 import 'package:expenses_control/widgets/custom_button.dart';
@@ -29,11 +30,11 @@ class _RegisterExpensesState extends State<RegisterExpenses> {
 
     if (isEditing) {
       expenseController.text = widget.expenseData!['title'];
-      valueController.text = widget.expenseData!['value'].toString();
+      valueController.text = widget.expenseData!['value'];
       categoryController.text = widget.expenseData!['category'];
-      dateController.text =
-          DateFormat("dd/MM/yyyy").format(widget.expenseData!['date'].toDate());
-      commentController.text = widget.expenseData!['comment'];
+      DateTime dateTime = (widget.expenseData!['date'] as Timestamp).toDate();
+      dateController.text = DateFormat("dd/MM/yyyy").format(dateTime);
+      commentController.text = widget.expenseData!['aditional_notes'];
     }
   }
 

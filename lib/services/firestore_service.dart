@@ -91,8 +91,7 @@ class FirestoreService {
 
   putRegisterExpense(String id, String expenseName, double value,
       String category, DateTime parsedDate, String comment) async {
-    await db.collection('Expenes_Control').add({
-      "Document ID": id,
+    await db.collection('Expenes_Control').doc(id).update({
       "title": expenseName,
       "value": value,
       "category": category,

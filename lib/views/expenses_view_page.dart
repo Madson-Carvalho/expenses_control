@@ -1,3 +1,4 @@
+import 'package:expenses_control/views/register_expenses.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -126,24 +127,25 @@ class _ExpensesViewPageState extends State<ExpensesViewPage> {
                         icon: const Icon(Icons.more_vert,
                             color: Color(0xFF00D09E)),
                         onSelected: (String choice) async {
-                          // if (choice == 'edit') {
-                          //   Map<String, dynamic> expenseData = {
-                          //     'id': expense['Document ID'],
-                          //     'title': expense['title'],
-                          //     'category': expense['category'],
-                          //     'date': expense['date'],
-                          //     'value': expense['value'],
-                          //     'aditional_notes': expense['aditional_notes']
-                          //   };
-                          //
-                          //   await Navigator.pushReplacement(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //         builder: (context) => RegisterExpenses(expenseData: expenseData),
-                          //       ));
-                          // } else if (choice == 'delete') {
-                          //   // Chame sua função de exclusão
-                          // }
+                          if (choice == 'edit') {
+                            print(expense.id);
+                            Map<String, dynamic> expenseData = {
+                              'id': expense.id,
+                              'title': expense['title'],
+                              'category': expense['category'],
+                              'date': expense['date'],
+                              'value': expense['value'].toString(),
+                              'aditional_notes': expense['aditional_notes']
+                            };
+
+                            await Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RegisterExpenses(expenseData: expenseData),
+                                ));
+                          } else if (choice == 'delete') {
+                            // Chame sua função de exclusão
+                          }
                         },
                         itemBuilder: (BuildContext context) => [
                           const PopupMenuItem(
