@@ -7,9 +7,7 @@ class FirestoreService {
     try {
       double total = 0;
 
-      var expenses = await db
-          .collection('Expenes_Control')
-          .get();
+      var expenses = await db.collection('Expenes_Control').get();
 
       for (var doc in expenses.docs) {
         double value = doc['value'] ?? 0.0;
@@ -36,7 +34,8 @@ class FirestoreService {
     }
   }
 
- postRegisterExpense(String expenseName, double value, String category, DateTime parsedDate, String comment) async {
+  postRegisterExpense(String expenseName, double value, String category,
+      DateTime parsedDate, String comment) async {
     await db.collection('Expenes_Control').add({
       "title": expenseName,
       "value": value,
@@ -48,7 +47,10 @@ class FirestoreService {
 
   getRegisterExpense() async {
     try {
-      var expenses = await db.collection('Expenes_Control').orderBy('created_at', descending: true).get();
+      var expenses = await db
+          .collection('Expenes_Control')
+          .orderBy('created_at', descending: true)
+          .get();
       return expenses.docs;
     } catch (e) {
       rethrow;
@@ -67,5 +69,30 @@ class FirestoreService {
       rethrow;
     }
   }
-}
 
+  getAllCategories() async {
+    try {
+      var expenses = await db
+          .collection('Expenes_Control')
+          .where('category')
+          .orderBy('date', descending: true)
+          .get();
+
+      return expenses.docs;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  putRegisterExpense(String id, String expenseName, double value,
+      String category, DateTime parsedDate, String comment) async {
+    await db.collection('Expenes_Control').add({
+      "Document ID": id,
+      "title": expenseName,
+      "value": value,
+      "category": category,
+      "date": parsedDate,
+      "aditional_notes": comment,
+    });
+  }
+}

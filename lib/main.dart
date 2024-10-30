@@ -17,13 +17,13 @@ main() async {
       theme: ThemeData(
         useMaterial3: false,
       ),
-      initialRoute: '/expense-view',
+      initialRoute: '/login',
       routes: {
         '/': (context) => const HomePage(),
         '/login': (context) => LoginPage(),
         '/register-user': (context) => RegisterUser(),
         '/register-expense': (context) => RegisterExpenses(),
-        '/expense-view': (context) => ExpensesViewPage(), // Adicione a nova rota
+        '/expense-view': (context) => const ExpensesViewPage(),
       },
     ),
   );
