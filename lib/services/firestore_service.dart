@@ -10,8 +10,13 @@ class FirestoreService {
       var expenses = await db.collection('Expenes_Control').get();
 
       for (var doc in expenses.docs) {
-        double value = doc['value'] ?? 0.0;
-        total += value;
+        var value = doc['value'];
+        double valueAsDouble = (value is double)
+            ? value
+            : (value is int)
+                ? value.toDouble()
+                : 0.0;
+        total += valueAsDouble;
       }
 
       return total;
