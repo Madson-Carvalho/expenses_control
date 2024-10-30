@@ -12,6 +12,17 @@ class BasePage extends StatefulWidget {
 }
 
 class _BasePageState extends State<BasePage> {
+  String userName = '';
+  String userEmail = '';
+
+  @override
+  void initState() {
+    super.initState();
+
+    _loadUserName();
+    _loadUserEmail();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,15 +38,15 @@ class _BasePageState extends State<BasePage> {
       ),
       drawer: Drawer(
         child: ListView(padding: EdgeInsets.zero, children: [
-          const UserAccountsDrawerHeader(
+          UserAccountsDrawerHeader(
             currentAccountPicture: CircleAvatar(),
-            accountEmail: Text('khalifa@example.com',
-                style: TextStyle(color: Colors.black)),
+            accountEmail: Text(userEmail,
+                style: const TextStyle(color: Colors.black)),
             accountName: Text(
-              'Khalifa do Brega',
-              style: TextStyle(fontSize: 24.0, color: Colors.black),
+              userName,
+              style: const TextStyle(fontSize: 24.0, color: Colors.black),
             ),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Color(0xFF00D09E),
             ),
           ),
@@ -92,5 +103,21 @@ class _BasePageState extends State<BasePage> {
       ),
       body: widget.body,
     );
+  }
+
+  Future<void> _loadUserName() async {
+    String name = await FirebaseAuthService().checkUser();
+
+    setState(() {
+      userName = name;
+    });
+  }
+
+  Future<void> _loadUserEmail() async {
+    String email = await FirebaseAuthService().checkEmail();
+
+    setState(() {
+      userEmail = email;
+    });
   }
 }

@@ -21,6 +21,11 @@ class FirebaseAuthService {
     return user;
   }
 
+  checkEmail() async {
+    var email = auth.currentUser!.email;
+    return email;
+  }
+
   login(String email, String password) async {
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
