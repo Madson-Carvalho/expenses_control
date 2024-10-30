@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class RegisterExpenses extends StatefulWidget {
-  RegisterExpenses({super.key});
+  final Map<String, dynamic>? expenseData;
+
+  const RegisterExpenses({super.key, this.expenseData});
 
   @override
   State<RegisterExpenses> createState() => _RegisterExpensesState();
@@ -18,6 +20,22 @@ class _RegisterExpensesState extends State<RegisterExpenses> {
   final TextEditingController categoryController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController commentController = TextEditingController();
+  late bool isEditing;
+
+  @override
+  void initState() {
+    super.initState();
+    isEditing = widget.expenseData != null;
+
+    if (isEditing) {
+      expenseController.text = widget.expenseData!['title'];
+      valueController.text = widget.expenseData!['value'].toString();
+      categoryController.text = widget.expenseData!['category'];
+      dateController.text =
+          DateFormat("dd/MM/yyyy").format(widget.expenseData!['date'].toDate());
+      commentController.text = widget.expenseData!['comment'];
+    }
+  }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -28,10 +46,11 @@ class _RegisterExpensesState extends State<RegisterExpenses> {
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
-            primaryColor: Color(0xFF00D09E), // Cor do cabeçalho
-            cardColor: Color(0xFF00D09E),
-            colorScheme: ColorScheme.light(primary: Color(0xFF00D09E)),
-            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            primaryColor: const Color(0xFF00D09E),
+            cardColor: const Color(0xFF00D09E),
+            colorScheme: const ColorScheme.light(primary: Color(0xFF00D09E)),
+            buttonTheme:
+                const ButtonThemeData(textTheme: ButtonTextTheme.primary),
           ),
           child: child ?? Container(),
         );
@@ -45,10 +64,44 @@ class _RegisterExpensesState extends State<RegisterExpenses> {
     }
   }
 
+  void _onSubmit() async {
+    try {
+      DateTime parsedDate = DateFormat("dd/MM/yyyy").parse(dateController.text);
+      if (isEditing) {
+        await FirestoreService().putRegisterExpense(
+          widget.expenseData!['id'],
+          expenseController.text,
+          double.parse(valueController.text),
+          categoryController.text,
+          parsedDate,
+          commentController.text,
+        );
+      } else {
+        await FirestoreService().postRegisterExpense(
+          expenseController.text,
+          double.parse(valueController.text),
+          categoryController.text,
+          parsedDate,
+          commentController.text,
+        );
+      }
+
+      expenseController.clear();
+      valueController.clear();
+      categoryController.clear();
+      dateController.clear();
+      commentController.clear();
+
+      Navigator.pop(context);
+    } catch (e) {
+      print("Erro ao registrar ou editar despesa: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      title: 'Cadastro de Despesas',
+      title: isEditing ? 'Edição de Despesa' : 'Cadastro de Despesas',
       body: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -99,31 +152,12 @@ class _RegisterExpensesState extends State<RegisterExpenses> {
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: CustomButton(
-                  titleButton: "Cadastrar",
+                  titleButton: isEditing ? "Atualizar" : "Cadastrar",
                   backgroundColor: const Color(0xFF00D09E),
                   color: const Color(0xFF093030),
-                  onPressed: () async {
-                    try {
-                      DateTime parsedDate = DateFormat("dd/MM/yyyy").parse(dateController.text);
-                      await FirestoreService().postRegisterExpense(
-                        expenseController.text,
-                        double.parse(valueController.text),
-                        categoryController.text,
-                        parsedDate,
-                        commentController.text,
-                      );
-
-                      expenseController.clear();
-                      valueController.clear();
-                      categoryController.clear();
-                      dateController.clear();
-                      commentController.clear();
-                    } catch (e) {
-                      print("Erro ao registrar despesa: $e");
-                    }
-                  },
+                  onPressed: _onSubmit,
                 ),
-              )
+              ),
             ],
           ),
         ),

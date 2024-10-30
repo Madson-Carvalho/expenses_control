@@ -63,11 +63,16 @@ class _BasePageState extends State<BasePage> {
               ),
             ),
           ),
-          const ListTile(
-            leading: Icon(Icons.money_off),
-            title: Text(
-              'Despesas',
-              style: TextStyle(fontSize: 20.0),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/expense-view');
+            },
+            child: const ListTile(
+              leading: Icon(Icons.money_off),
+              title: Text(
+                'Despesas',
+                style: TextStyle(fontSize: 20.0),
+              ),
             ),
           ),
           GestureDetector(

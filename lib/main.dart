@@ -1,3 +1,4 @@
+import 'package:expenses_control/views/expenses_view_page.dart';
 import 'package:expenses_control/views/home_page.dart';
 import 'package:expenses_control/views/login_page.dart';
 import 'package:expenses_control/views/register_expenses.dart';
@@ -22,6 +23,7 @@ main() async {
         '/login': (context) => LoginPage(),
         '/register-user': (context) => RegisterUser(),
         '/register-expense': (context) => RegisterExpenses(),
+        '/expense-view': (context) => const ExpensesViewPage(),
       },
     ),
   );
