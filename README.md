@@ -55,9 +55,4 @@ Utilizar Firebase Firestore para armazenar os dados das despesas e garantir a si
 ### Cadastro de despesas
 ![image](https://github.com/user-attachments/assets/a2aa033f-baa5-4d61-abdb-70406ccfc953)
 ### Despesas
-![image](https://github.com/user-attachments/assets/bd6edea0-b015-41eb-adfd-4c5fe3786f1c)
-
-
-
-
-
+![image](https://github.com/user-attachments/assets/7e468167-9a14-4283-beb5-470ca697e99e)
