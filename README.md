@@ -44,16 +44,15 @@ Utilizar Firebase Firestore para armazenar os dados das despesas e garantir a si
 
 # Telas do aplicativo:
 ### Tela de login
-
-### Tela de cadastro
-
+![image](https://github.com/user-attachments/assets/209ee489-d187-446a-849b-112f2b340626)
+### Tela de cadastro de usuário
+![image](https://github.com/user-attachments/assets/a8c8151b-2714-4b16-934a-981df6ec2338)
 ### Home
-
+![image](https://github.com/user-attachments/assets/ba7d5fee-c2c1-41ff-8e5e-ac4a5d288ae6)
 ### Cadastro de despesas
-
+![image](https://github.com/user-attachments/assets/a2aa033f-baa5-4d61-abdb-70406ccfc953)
 ### Despesas
-
-
+![image](https://github.com/user-attachments/assets/bd6edea0-b015-41eb-adfd-4c5fe3786f1c)
 
 
 
