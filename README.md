@@ -43,17 +43,16 @@ Permitir que o usuário edite ou exclua despesas já cadastradas, com atualizaç
 Utilizar Firebase Firestore para armazenar os dados das despesas e garantir a sincronização entre diferentes dispositivos.
 
 # Telas do aplicativo:
-### 
+### Tela de login
 
-###
+### Tela de cadastro
 
-###
+### Home
 
-###
+### Cadastro de despesas
 
-###
+### Despesas
 
-###
 
 
 
