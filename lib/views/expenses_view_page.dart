@@ -16,7 +16,12 @@ class _ExpensesViewPageState extends State<ExpensesViewPage> {
   List _allExpenses = [];
   List _filteredExpenses = [];
   String? _selectedCategory;
+  String? _selectedSortOption;
+  String? _selectedSortOrder;
   List<String> _categories = [];
+
+  final List<String> _sortOptions = ['Data', 'Valor'];
+  final List<String> _sortOrders = ['acs', 'dec'];
 
   @override
   void initState() {
@@ -36,14 +41,25 @@ class _ExpensesViewPageState extends State<ExpensesViewPage> {
     });
   }
 
-  void _filterExpenses() {
+  void _filterAndSortExpenses() {
     setState(() {
-      if (_selectedCategory != null) {
-        _filteredExpenses = _allExpenses
-            .where((expense) => expense['category'] == _selectedCategory)
-            .toList();
-      } else {
-        _filteredExpenses = _allExpenses;
+      _filteredExpenses = _allExpenses.where((expense) {
+        if (_selectedCategory != null) {
+          return expense['category'] == _selectedCategory;
+        }
+        return true;
+      }).toList();
+
+      if (_selectedSortOption != null && _selectedSortOrder != null) {
+        _filteredExpenses.sort((a, b) {
+          int comparison;
+          if (_selectedSortOption == 'Data') {
+            comparison = a['date'].compareTo(b['date']);
+          } else {
+            comparison = a['value'].compareTo(b['value']);
+          }
+          return _selectedSortOrder == 'acs' ? comparison : -comparison;
+        });
       }
     });
   }
@@ -82,16 +98,15 @@ class _ExpensesViewPageState extends State<ExpensesViewPage> {
                   ),
                 ),
                 value: _selectedCategory,
-                hint: const Text('Escolha Uma Opção'),
+                hint: const Text('Escolha uma Categoria'),
                 isExpanded: true,
                 onChanged: (String? newValue) {
                   setState(() {
                     _selectedCategory = newValue;
-                    _filterExpenses();
+                    _filterAndSortExpenses();
                   });
                 },
-                items:
-                    _categories.map<DropdownMenuItem<String>>((String value) {
+                items: _categories.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem(
                     value: value,
                     child: Text(value),
@@ -99,6 +114,103 @@ class _ExpensesViewPageState extends State<ExpensesViewPage> {
                 }).toList(),
               ),
             ),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.35,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownButtonFormField(
+                    dropdownColor: const Color(0xFFDFF7E2),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: const Color(0xFFDFF7E2),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: const BorderSide(
+                          color: Color(0xFF00D09E),
+                          width: 2,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: const BorderSide(
+                          color: Color(0xFF00D09E),
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                    value: _selectedSortOption,
+                    hint: const Text('Ordenar Por'),
+                    isExpanded: true,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedSortOption = newValue;
+                        _filterAndSortExpenses();
+                      });
+                    },
+                    items: _sortOptions.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.35,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownButtonFormField(
+                    dropdownColor: const Color(0xFFDFF7E2),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: const Color(0xFFDFF7E2),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: const BorderSide(
+                          color: Color(0xFF00D09E),
+                          width: 2,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: const BorderSide(
+                          color: Color(0xFF00D09E),
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                    value: _selectedSortOrder,
+                    hint: const Text('Ordem'),
+                    isExpanded: true,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedSortOrder = newValue;
+                        _filterAndSortExpenses();
+                      });
+                    },
+                    items: _sortOrders.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem(
+                        value: value,
+                        child: Text(value == 'acs' ? 'Crescente' : 'Decrescente'),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 10),
           Expanded(
@@ -162,7 +274,7 @@ class _ExpensesViewPageState extends State<ExpensesViewPage> {
                 );
               },
               separatorBuilder: (context, index) =>
-                  const Divider(color: Color(0xFF00D09E)),
+              const Divider(color: Color(0xFF00D09E)),
             ),
           ),
         ],
