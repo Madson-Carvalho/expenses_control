@@ -128,7 +128,6 @@ class _ExpensesViewPageState extends State<ExpensesViewPage> {
                             color: Color(0xFF00D09E)),
                         onSelected: (String choice) async {
                           if (choice == 'edit') {
-                            print(expense.id);
                             Map<String, dynamic> expenseData = {
                               'id': expense.id,
                               'title': expense['title'],
@@ -144,7 +143,7 @@ class _ExpensesViewPageState extends State<ExpensesViewPage> {
                                   builder: (context) => RegisterExpenses(expenseData: expenseData),
                                 ));
                           } else if (choice == 'delete') {
-                            // Chame sua função de exclusão
+                            FirestoreService().deleteExpense(expense.id);
                           }
                         },
                         itemBuilder: (BuildContext context) => [

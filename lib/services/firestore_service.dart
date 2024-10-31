@@ -99,4 +99,8 @@ class FirestoreService {
       "aditional_notes": comment,
     });
   }
+
+  deleteExpense(String id) async {
+    await db.collection('Expenes_Control').doc(id).delete();
+  }
 }
