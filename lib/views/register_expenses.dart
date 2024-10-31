@@ -93,7 +93,7 @@ class _RegisterExpensesState extends State<RegisterExpenses> {
       dateController.clear();
       commentController.clear();
 
-      Navigator.pop(context);
+      Navigator.pushReplacementNamed(context, '/');
     } catch (e) {
       print("Erro ao registrar ou editar despesa: $e");
     }
