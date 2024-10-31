@@ -42,6 +42,9 @@ Permitir que o usuário edite ou exclua despesas já cadastradas, com atualizaç
 ## 8.	Persistência dos Dados:
 Utilizar Firebase Firestore para armazenar os dados das despesas e garantir a sincronização entre diferentes dispositivos.
 
+# Link figma
+<a href="https://www.figma.com/design/kuqPGYqsi5icGtD29VaUU9/Finance-Management-Mobile?node-id=7020-3430&t=M0SDLl2R4zVTBmpi-1" tagert="_blank">Acesse aqui o link do figma</a>
+
 # Telas do aplicativo:
 ### Tela de login
 ![image](https://github.com/user-attachments/assets/209ee489-d187-446a-849b-112f2b340626)
